@@ -1,2 +1,10 @@
 resources/**/*
 *.csv
+resources.zip
+Vision Data Reporter - V1.06 - beta.xlsm
+TrafficDataPrep/TrafficDataPrep/.vs/TrafficDataPrep/v16/.suo
+TrafficDataPrep/TrafficDataPrep/bin/Debug/netcoreapp3.1/TrafficDataPrep.dll
+TrafficDataPrep/TrafficDataPrep/bin/Debug/netcoreapp3.1/TrafficDataPrep.pdb
+TrafficDataPrep/TrafficDataPrep/obj/Debug/netcoreapp3.1/TrafficDataPrep.csprojAssemblyReference.cache
+TrafficDataPrep/TrafficDataPrep/obj/Debug/netcoreapp3.1/TrafficDataPrep.dll
+TrafficDataPrep/TrafficDataPrep/obj/Debug/netcoreapp3.1/TrafficDataPrep.pdb

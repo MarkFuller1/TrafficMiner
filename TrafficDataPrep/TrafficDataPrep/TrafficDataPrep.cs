@@ -21,26 +21,31 @@
         /// </summary>
         internal static void Main()
         {
-            // Read the file and display it line by line.  
+            // Get list of files in source dir
             var files = Directory.GetFiles(_resource_path);
+
 
             foreach (string file in files)
             {
                 Console.WriteLine("Reading: " + file);
+
+                // Read the file and split it up by month
                 var monthData = ReadFile(file);
 
                 // write each entry of the map into its own file. 
                 foreach (KeyValuePair<long, ArrayList> entry in monthData)
                 {
+                    // create a dir in the original location, name it the same as the original file, name the file the month day
                     var dataFilename = new DirectoryInfo(_resource_path).CreateSubdirectory(Path.GetFileNameWithoutExtension(file)).FullName + Path.DirectorySeparatorChar + entry.Key + ".csv";
                     Console.WriteLine(dataFilename);
 
+                    // delete the file before writing to it
                     if (File.Exists(dataFilename)) { File.Delete(dataFilename); }
 
+                    // write the array to the file. 
                     File.WriteAllLines(dataFilename, entry.Value.Cast<string>().ToArray());
                 }
             }
-            Console.Read();
         }
 
         /// <summary>
@@ -86,16 +91,6 @@
             Console.WriteLine("Last Day:" + maxDate.ToString("yyyy / MM / dd HH: mm:ss.fff", new System.Globalization.CultureInfo("en-US")));
 
             return days;
-        }
-
-        /// <summary>
-        /// The Head.
-        /// </summary>
-        /// <param name="filepath">The filepath<see cref="string"/>.</param>
-        /// <returns>The <see cref="string"/>.</returns>
-        internal static string Head(string filepath)
-        {
-            return new System.IO.StreamReader(filepath).ReadLine();
         }
     }
 }
