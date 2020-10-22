@@ -1,0 +1,11 @@
+/home/mark/documents/TrafficMiner/TrafficDataPrep/VSCode/bin/Debug/netcoreapp3.1/TrafficDataPrep
+/home/mark/documents/TrafficMiner/TrafficDataPrep/VSCode/bin/Debug/netcoreapp3.1/TrafficDataPrep.deps.json
+/home/mark/documents/TrafficMiner/TrafficDataPrep/VSCode/bin/Debug/netcoreapp3.1/TrafficDataPrep.runtimeconfig.json
+/home/mark/documents/TrafficMiner/TrafficDataPrep/VSCode/bin/Debug/netcoreapp3.1/TrafficDataPrep.runtimeconfig.dev.json
+/home/mark/documents/TrafficMiner/TrafficDataPrep/VSCode/bin/Debug/netcoreapp3.1/TrafficDataPrep.dll
+/home/mark/documents/TrafficMiner/TrafficDataPrep/VSCode/bin/Debug/netcoreapp3.1/TrafficDataPrep.pdb
+/home/mark/documents/TrafficMiner/TrafficDataPrep/VSCode/obj/Debug/netcoreapp3.1/TrafficDataPrep.csprojAssemblyReference.cache
+/home/mark/documents/TrafficMiner/TrafficDataPrep/VSCode/obj/Debug/netcoreapp3.1/TrafficDataPrep.AssemblyInfoInputs.cache
+/home/mark/documents/TrafficMiner/TrafficDataPrep/VSCode/obj/Debug/netcoreapp3.1/TrafficDataPrep.AssemblyInfo.cs
+/home/mark/documents/TrafficMiner/TrafficDataPrep/VSCode/obj/Debug/netcoreapp3.1/TrafficDataPrep.dll
+/home/mark/documents/TrafficMiner/TrafficDataPrep/VSCode/obj/Debug/netcoreapp3.1/TrafficDataPrep.pdb
