@@ -9,3 +9,18 @@
 /home/mark/documents/TrafficMiner/TrafficDataPrep/VSCode/obj/Debug/netcoreapp3.1/TrafficDataPrep.AssemblyInfo.cs
 /home/mark/documents/TrafficMiner/TrafficDataPrep/VSCode/obj/Debug/netcoreapp3.1/TrafficDataPrep.dll
 /home/mark/documents/TrafficMiner/TrafficDataPrep/VSCode/obj/Debug/netcoreapp3.1/TrafficDataPrep.pdb
+C:\Users\Mark Fuller\Desktop\Senior\DM\traffic\TrafficDataPrep\VSCode\bin\Debug\netcoreapp3.1\TrafficDataPrep.exe
+C:\Users\Mark Fuller\Desktop\Senior\DM\traffic\TrafficDataPrep\VSCode\bin\Debug\netcoreapp3.1\TrafficDataPrep.deps.json
+C:\Users\Mark Fuller\Desktop\Senior\DM\traffic\TrafficDataPrep\VSCode\bin\Debug\netcoreapp3.1\TrafficDataPrep.runtimeconfig.json
+C:\Users\Mark Fuller\Desktop\Senior\DM\traffic\TrafficDataPrep\VSCode\bin\Debug\netcoreapp3.1\TrafficDataPrep.runtimeconfig.dev.json
+C:\Users\Mark Fuller\Desktop\Senior\DM\traffic\TrafficDataPrep\VSCode\bin\Debug\netcoreapp3.1\TrafficDataPrep.dll
+C:\Users\Mark Fuller\Desktop\Senior\DM\traffic\TrafficDataPrep\VSCode\bin\Debug\netcoreapp3.1\TrafficDataPrep.pdb
+C:\Users\Mark Fuller\Desktop\Senior\DM\traffic\TrafficDataPrep\VSCode\bin\Debug\netcoreapp3.1\Interop.Microsoft.Office.Interop.Excel.dll
+C:\Users\Mark Fuller\Desktop\Senior\DM\traffic\TrafficDataPrep\VSCode\obj\Debug\netcoreapp3.1\Interop.Microsoft.Office.Interop.Excel.dll
+C:\Users\Mark Fuller\Desktop\Senior\DM\traffic\TrafficDataPrep\VSCode\obj\Debug\netcoreapp3.1\TrafficDataPrep.csproj.ResolveComReference.cache
+C:\Users\Mark Fuller\Desktop\Senior\DM\traffic\TrafficDataPrep\VSCode\obj\Debug\netcoreapp3.1\TrafficDataPrep.csproj.CoreCompileInputs.cache
+C:\Users\Mark Fuller\Desktop\Senior\DM\traffic\TrafficDataPrep\VSCode\obj\Debug\netcoreapp3.1\TrafficDataPrep.AssemblyInfoInputs.cache
+C:\Users\Mark Fuller\Desktop\Senior\DM\traffic\TrafficDataPrep\VSCode\obj\Debug\netcoreapp3.1\TrafficDataPrep.AssemblyInfo.cs
+C:\Users\Mark Fuller\Desktop\Senior\DM\traffic\TrafficDataPrep\VSCode\obj\Debug\netcoreapp3.1\TrafficDataPrep.dll
+C:\Users\Mark Fuller\Desktop\Senior\DM\traffic\TrafficDataPrep\VSCode\obj\Debug\netcoreapp3.1\TrafficDataPrep.pdb
+C:\Users\Mark Fuller\Desktop\Senior\DM\traffic\TrafficDataPrep\VSCode\obj\Debug\netcoreapp3.1\TrafficDataPrep.genruntimeconfig.cache
