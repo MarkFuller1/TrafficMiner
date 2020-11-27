@@ -45,7 +45,7 @@ combined_csv = pd.DataFrame(removed_headers_sorted, index=None, columns=combined
 combined_csv.to_csv("combined_csv.csv", index=False)
 
 data = []
-
+#
 # for file in files:
 #     with open(file) as f:
 #         reader = csv.reader(f)
