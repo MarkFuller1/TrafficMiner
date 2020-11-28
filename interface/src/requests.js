@@ -19,14 +19,14 @@ export async function getGoogleHtml(search_str) {
 
 export async function getCSV(callback) {
   return axios
-    .get("https://localhost:44302/data/", {
+    .get("https://localhost:5002/data/", {
       headers: request_headers,
       onDownloadProgress: (progressEvent) => {
         //progressEvent.srcElement.
         let percentCompleted = Math.round(
           (progressEvent.loaded * 100) / progressEvent.total
         );
-        console.log("progress event:", progressEvent);
+         //console.log("progress event:", progressEvent);
         callback(percentCompleted);
       },
     })
@@ -51,6 +51,6 @@ export async function getAnomalies(index, threshold) {
       return response;
     })
     .catch((error) => {
-      console.log(error);
+       //console.log(error);
     });
 }

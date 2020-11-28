@@ -2,40 +2,38 @@ import React from "react";
 import Button from "@material-ui/core/Button";
 import { getGoogleHtml } from "./requests";
 import GoogleTable from "./GoogleTable";
+var moment = require("moment"); // require
 
 export default function News(props) {
-  const [selected, changeSelected] = React.useState(
-    "March+14+2019"
-  );
+  var errors = undefined;
+
+  //console.log("the date is" + props.date);
+  var searchDate = moment(props.date, "gggg-MM-DD HH:mm:ss");
+  //console.log("news date:" + searchDate);
+
+  var string_date = searchDate.format("MMMM+DD+gggg");
+
+  var nice_date = searchDate.format("MMMM DD gggg");
+
+  //console.log("Search date:" + string_date);
+  //console.log("nice date:" + nice_date);
+
   const [search_results, updateSearch] = React.useState([]);
 
   React.useEffect(() => {
-    getGoogleHtml("Thousand+Oaks+" + selected + "+News").then((response) => {
-      updateSearch(response.data.items);
+    getGoogleHtml("Thousand+Oaks+" + string_date + "+News").then((response) => {
+      if (response === "undefined" || response === undefined) {
+        updateSearch([]);
+      } else {
+        updateSearch(response.data.items);
+      }
     });
   }, []);
 
-  const handleSearch = async () => {
-    var response = await getGoogleHtml(selected);
-    if (response !== undefined && response !== "undefined") {
-      console.log(response.data.items);
-
-      updateSearch(response.data.items);
-    } else {
-      updateSearch("<div>There was an error</div>");
-    }
-  };
-
   return (
     <React.Fragment>
-      <Button
-        onClick={() => {
-          handleSearch();
-        }}
-      >
-        News For {selected}
-      </Button>
-      <GoogleTable data={search_results} />
+      <Button>News For {nice_date}</Button>
+      <GoogleTable error={errors} data={search_results} />
     </React.Fragment>
   );
 }

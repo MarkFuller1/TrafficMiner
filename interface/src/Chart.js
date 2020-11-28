@@ -2,8 +2,31 @@ import React from "react";
 import { useTheme } from "@material-ui/core/styles";
 import { LineChart, Line, XAxis, YAxis, Label, ReferenceArea } from "recharts";
 
+var moment = require("moment"); // require
+
 export default function Chart(props) {
   const theme = useTheme();
+
+  const formatAxis = (tickItem) => {
+    tickItem = new Date(tickItem)
+
+    var date = "";
+    if (tickItem instanceof Date) {
+      date = 
+        tickItem.getMonth() +
+        "/" +
+        tickItem.getDay() +
+        "/" +
+        tickItem.getFullYear() +
+        " " +
+        tickItem.getHours()+
+        ":" +
+        tickItem.getMinutes()
+    }
+
+
+    return date;
+  };
 
   const parseData = () => {
     // in the props is the name of the field, figure out the index
@@ -20,51 +43,65 @@ export default function Chart(props) {
     // convert props.startDay and props.endDay to indices
     var startIndex = 0;
     var endIndex = props.data.length - 1;
+    var sliced_days = [];
 
-    for (var i = 0; i < props.data.length; i++){
-      if(new Date(props.data[i][0]) === props.startDay){
-          startIndex = i;
+     //console.log("Chart - start: " + props.startDay);
+     //console.log("Chart - end: " + props.endDay);
+
+    for (var i = 0; i < props.data.length; i++) {
+      var current_day = new Date(props.data[i].timestamp);
+
+      if (current_day === props.startDay) {
+        startIndex = i;
       }
 
-      if(new Date(props.data[i][0] === props.endDay)){
+      if (current_day === props.endDay) {
         endIndex = i;
       }
+
+      if (current_day >= props.startDay && current_day <= props.endDay) {
+        sliced_days.push({
+          date: formatAxis(current_day),
+          value: Number(Object.values(props.data[i])[selected_index]),
+        });
+      }
+
+      sliced_days.sort((a, b) => {
+        if (a.date < b.date) {
+          return -1;
+        }
+        if (a.date > b.date) {
+          return 1;
+        } else return 0;
+      });
     }
 
-
-
-    let range = props.data.slice(
-      startIndex, endIndex
-    );
-
-    return range;
+     //console.log("Finished slicing the data:");
+     //console.log(sliced_days);
+    return sliced_days;
   };
 
   const indexedData = parseData();
 
-  const formatAxis = (tickItem) => {
-    return tickItem;
-  };
 
   return (
     <React.Fragment>
       <LineChart
         data={indexedData}
         width={1230}
-        height={600}
+        height={400}
         margin={{
           top: 5,
           right: 30,
           left: 20,
-          bottom: 5,
+          bottom: 100,
         }}
       >
         <XAxis
           dataKey="date"
-          angle={-90}
-          height={120}
+          angle={-45}
+          height={20}
           textAnchor="end"
-          tickFormatter={formatAxis}
           stroke={theme.palette.text.secondary}
         />
         <YAxis stroke={theme.palette.text.secondary}>

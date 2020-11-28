@@ -20,14 +20,17 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import FormControl from "@material-ui/core/FormControl";
 import Button from "@material-ui/core/Button";
-import Slider from '@material-ui/core/Slider'
+import Slider from "@material-ui/core/Slider";
 
 const num_regex_float = RegExp("^[0-9]*(.)?[0-9]*$");
 const num_regex_int = RegExp("^[0-9]*$");
 const minDate = new Date("August 13, 2019");
 const maxDate = new Date("August 1, 2020");
 
-const useStyles = makeStyles((theme) => ({}));
+const one_day_in_millis = 86400000;
+
+//console.log(minDate);
+//console.log(new Date(minDate.getTime() + one_day_in_millis));
 
 export default function Dashboard() {
   const [data, updateData] = React.useState([]);
@@ -37,25 +40,27 @@ export default function Dashboard() {
 
   const [comboSelection, updateComboSelection] = React.useState("total_volume");
   const [startDay, updateStartDay] = React.useState(minDate);
-  const [endDay, updateEndDay] = React.useState(minDate.getDate() + 1);
+  const [endDay, updateEndDay] = React.useState(
+    new Date(minDate.getTime() + one_day_in_millis)
+  );
   const [threshold, updateThreshold] = React.useState(0.25);
   // field to display
   const [index, updateIndex] = React.useState(0);
 
   const [anomalies, updateAnomalies] = React.useState([]);
 
-  const [selectedDate, updateSelectedDate] = React.useState("January+1+2019");
+  const [selectedDate, updateSelectedDate] = React.useState(minDate);
 
-  const handleSliderChangeThreshold = (event, value) => {
-    //var value = event.target.value;
+  const handleSliderChangeThreshold = (event) => {
+    var value = Number(event.target.innerText);
+    console.log(value)
     if (num_regex_float.test(value)) {
-      console.log(value);
-      updateThreshold(value);
+      //console.log(value);
 
-      Requests.getAnomalies(index, threshold).then((response) => {
-        console.log(response.data.length);
-
+      Requests.getAnomalies(index, value).then((response) => {
+        //console.log(response.data.length);
         updateAnomalies(response.data);
+        updateThreshold(value);
       });
     }
   };
@@ -69,11 +74,11 @@ export default function Dashboard() {
   };
 
   React.useEffect(() => {
-    console.log("getting CSV");
+    //console.log("getting CSV");
     Requests.getCSV(updatePercentDown)
       .then((results) => {
-        console.log("got CSV");
-        console.log(results.data[0]);
+        //console.log("got CSV");
+        //console.log(results.data[0]);
         updateTitles(results.data[0]);
         updateData(results.data.slice(1));
         updateLoading(false);
@@ -86,7 +91,7 @@ export default function Dashboard() {
 
   React.useEffect(() => {
     Requests.getAnomalies(index, threshold).then((response) => {
-      console.log(response.data);
+      //console.log(response.data);
       updateAnomalies(response.data);
     });
   }, []);
@@ -105,7 +110,7 @@ export default function Dashboard() {
         fields={titles}
         comboSelection={comboSelection}
         startDay={startDay}
-        endDay={endtay}
+        endDay={endDay}
         anomalies={anomalies}
       />
     );
@@ -135,14 +140,15 @@ export default function Dashboard() {
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
-          <Grid container spacing={5}>
+          <Grid container spacing={10}>
             {/* Chart */}
             <Grid item lg={12}>
               <Paper>
                 {conditionalComponent}
+                <div style={{ height: "2vh" }} />
                 <Grid
                   container
-                  spacing={5}
+                  spacing={2}
                   direction="column"
                   alignItems="center"
                   justify="space-evenly"
@@ -163,12 +169,12 @@ export default function Dashboard() {
                       )}
                       onChange={(event) => {
                         updateComboSelection(event.target.textContent);
-                        console.log(
-                          event.target.textContent,
-                          Object.keys(titles).findIndex(
-                            (obj) => obj === event.target.textContent
-                          )
-                        );
+                        //  //console.log(
+                        //   event.target.textContent,
+                        //   Object.keys(titles).findIndex(
+                        //     (obj) => obj === event.target.textContent
+                        //   )
+                        // );
                         updateIndex(
                           Object.keys(titles).findIndex(
                             (obj) => obj === event.target.textContent
@@ -183,7 +189,7 @@ export default function Dashboard() {
                     <DatePicker
                       minDate={new Date("August 13, 2019")}
                       maxDate={new Date("August 1, 2020")}
-                      selected={new Date()}
+                      selected={startDay}
                       onChange={handleChangeStartDay}
                     />
                   </Grid>
@@ -192,15 +198,17 @@ export default function Dashboard() {
                     <DatePicker
                       minDate={new Date("August 13, 2019")}
                       maxDate={new Date("August 1, 2020")}
-                      selected={new Date()}
+                      selected={endDay}
                       onChange={handleChangeEndDay}
                     />
                   </Grid>
                   <Grid item xs={12}>
-                    {/* <Typography>Anomaly Treshold</Typography> */}
+                    <Typography component="h2">Anomaly Treshold</Typography>
                     <Slider
+                      marks
+                      valueLabelDisplay="auto"
                       defaultValue={0.25}
-                      step={0.25}
+                      step={0.05}
                       min={0}
                       max={1.0}
                       onChangeCommitted={handleSliderChangeThreshold}
@@ -210,10 +218,13 @@ export default function Dashboard() {
               </Paper>
             </Grid>
             {/* Total Anomalies */}
-            <Grid item xs={12} md={4} lg={3}>
+            <Grid item>
               <Paper>
-                {console.log("there are :" + anomalies.length + " anomalies")}
-                <TotalAnomalies data={anomalies} />
+                {/* { console.log("there are :" + anomalies.length + " anomalies")} */}
+                <TotalAnomalies
+                  data={anomalies}
+                  updateNews={updateSelectedDate}
+                />
               </Paper>
             </Grid>
           </Grid>
@@ -229,3 +240,79 @@ export default function Dashboard() {
     </div>
   );
 }
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: "flex",
+  },
+  toolbar: {
+    paddingRight: 24, // keep right padding when drawer closed
+  },
+  toolbarIcon: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "flex-end",
+    padding: "0 8px",
+    ...theme.mixins.toolbar,
+  },
+  appBar: {
+    zIndex: theme.zIndex.drawer + 1,
+    transition: theme.transitions.create(["width", "margin"], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+  },
+  appBarShift: {
+    transition: theme.transitions.create(["width", "margin"], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  },
+  menuButton: {
+    marginRight: 36,
+  },
+  menuButtonHidden: {
+    display: "none",
+  },
+  title: {
+    flexGrow: 1,
+  },
+  drawerPaper: {
+    position: "relative",
+    whiteSpace: "nowrap",
+    transition: theme.transitions.create("width", {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  },
+  drawerPaperClose: {
+    overflowX: "hidden",
+    transition: theme.transitions.create("width", {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    width: theme.spacing(7),
+    [theme.breakpoints.up("sm")]: {
+      width: theme.spacing(9),
+    },
+  },
+  appBarSpacer: theme.mixins.toolbar,
+  content: {
+    flexGrow: 1,
+    height: "100vh",
+    overflow: "auto",
+  },
+  container: {
+    paddingTop: theme.spacing(4),
+    paddingBottom: theme.spacing(4),
+  },
+  paper: {
+    padding: theme.spacing(2),
+    display: "flex",
+    overflow: "auto",
+    flexDirection: "column",
+  },
+  fixedHeight: {
+    height: 240,
+  },
+}));
