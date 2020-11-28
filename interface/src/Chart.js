@@ -61,7 +61,7 @@ export default function Chart(props) {
 
       if (current_day >= props.startDay && current_day <= props.endDay) {
         sliced_days.push({
-          date: formatAxis(current_day),
+          date: moment(current_day, 'YYYY-MM-DD HH:mm:ss').format("MMMM/DD/YYYY HH:mm"),
           value: Number(Object.values(props.data[i])[selected_index]),
         });
       }
@@ -99,7 +99,7 @@ export default function Chart(props) {
       >
         <XAxis
           dataKey="date"
-          angle={-45}
+          angle={-20}
           height={20}
           textAnchor="end"
           stroke={theme.palette.text.secondary}

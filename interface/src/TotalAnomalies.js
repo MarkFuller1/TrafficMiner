@@ -14,15 +14,13 @@ import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 
-var moment = require('moment'); // require
-
+var moment = require("moment"); // require
 
 export default function TotalAnomalies(props) {
   const formatAxis = (tickItem) => {
     // console.log("before:" + tickItem)
-            tickItem = moment(tickItem, 'gggg-MM-DD HH:mm:ss').toDate();
+    tickItem = moment(tickItem, "YYYY-MM-DD HH:mm:ss").toDate();
     // console.log("after:" + tickItem)
-
 
     var date = "";
     if (tickItem instanceof Date) {
@@ -38,10 +36,16 @@ export default function TotalAnomalies(props) {
         tickItem.getMinutes();
     }
 
-    console.log(date)
+    console.log(date);
 
     return date;
   };
+
+  const handleDateSelect = (event, date) => {
+    console.log("Selected date: " + date)
+
+    props.updateNews(date)
+  }
 
   return (
     <React.Fragment>
@@ -53,11 +57,14 @@ export default function TotalAnomalies(props) {
         {props.data.map((date, index) => (
           <Grid item xs={3}>
             <Button
+              value={moment(
+                props.data[index].date,
+                "YYYY-MM-DD HH:mm:ss"
+              ).toDate()}
               key={index}
               onClick={(event) => {
-                var date = moment(event.target.textContent, 'gggg-MM-DD HH:mm:ss').toDate();
-                console.log(date)
-                props.updateNews(date);
+                console.log(props.data[index].date)
+                handleDateSelect(event, moment(props.data[index].date, 'YYYY-MM-DD HH:mm:ss'));
               }}
             >
               {date.date}
