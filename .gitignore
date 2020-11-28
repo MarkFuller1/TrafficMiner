@@ -373,3 +373,7 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+TrafficDataPrep/TrafficDataPrep/.vs/
+TrafficDataPrep/TrafficDataPrep/.vs
+TrafficDataPrep/TrafficDataPrep/.vs/*
