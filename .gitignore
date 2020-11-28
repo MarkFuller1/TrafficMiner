@@ -5,3 +5,4 @@ Vision Data Reporter - V1.06 - beta.xlsm
 TrafficDataPrep/TrafficDataPrep/.vs/**/*
 TrafficDataPrep/TrafficDataPrep/bin/**/*
 TrafficDataPrep/TrafficDataPrep/obj/**/*
+node_modules/**/*
