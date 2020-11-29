@@ -10,6 +10,7 @@ export async function getGoogleHtml(search_str) {
   return await axios
     .get(constants.google_url + search_str) //, {headers: request_headers})
     .then((response) => {
+      console.log("search string" + search_str)
       return response;
     })
     .catch((error) => {
@@ -42,7 +43,7 @@ export async function getAnomalies(index, threshold) {
   return axios
     .get(
       "http://localhost:5000/anomalies/" +
-        String(index) +
+        String(index + 1) +
         "/" +
         String(threshold),
       { headers: request_headers }

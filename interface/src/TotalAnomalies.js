@@ -49,7 +49,7 @@ export default function TotalAnomalies(props) {
 
   return (
     <React.Fragment>
-      <Title>Number of Anomalies</Title>
+      <Title>Number of Anomalies in {props.field}</Title>
       <Typography component="h1" variant="h4">
         {props.data.length}
       </Typography>

@@ -18,14 +18,10 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import TextField from "@material-ui/core/TextField";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import FormControl from "@material-ui/core/FormControl";
-import Button from "@material-ui/core/Button";
 import Slider from "@material-ui/core/Slider";
 
 const num_regex_float = RegExp("^[0-9]*(.)?[0-9]*$");
-const num_regex_int = RegExp("^[0-9]*$");
 const minDate = new Date("August 13, 2019");
-const maxDate = new Date("August 1, 2020");
 
 const one_day_in_millis = 86400000;
 
@@ -44,6 +40,7 @@ export default function Dashboard() {
     new Date(minDate.getTime() + one_day_in_millis)
   );
   const [threshold, updateThreshold] = React.useState(0.25);
+  const [suggestedThresh, updateSuggestedThresh] = React.useState(1);
   // field to display
   const [index, updateIndex] = React.useState(0);
 
@@ -53,7 +50,7 @@ export default function Dashboard() {
 
   const handleSliderChangeThreshold = (event) => {
     var value = Number(event.target.innerText);
-    console.log(value)
+    console.log(value);
     if (num_regex_float.test(value)) {
       //console.log(value);
 
@@ -75,6 +72,7 @@ export default function Dashboard() {
 
   React.useEffect(() => {
     //console.log("getting CSV");
+    updateLoading(true);
     Requests.getCSV(updatePercentDown)
       .then((results) => {
         //console.log("got CSV");
@@ -91,10 +89,18 @@ export default function Dashboard() {
 
   React.useEffect(() => {
     Requests.getAnomalies(index, threshold).then((response) => {
+      updateLoading(true);
       //console.log(response.data);
+      if (response.data.length !== 0) {
+        var suggestedThresh = String(
+          Math.round(response.data[0].threshold / 0.05) * 0.05
+        );
+        updateSuggestedThresh(String(Number(suggestedThresh).toFixed(2)));
+      }
       updateAnomalies(response.data);
+      updateLoading(false);
     });
-  }, []);
+  }, [index, threshold]);
 
   const classes = useStyles();
   const open = false;
@@ -203,7 +209,9 @@ export default function Dashboard() {
                     />
                   </Grid>
                   <Grid item xs={12}>
-                    <Typography component="h2">Anomaly Treshold</Typography>
+                    <Typography component="h2">
+                      Anomaly Treshold: ({suggestedThresh})
+                    </Typography>
                     <Slider
                       marks
                       valueLabelDisplay="auto"
@@ -211,7 +219,11 @@ export default function Dashboard() {
                       step={0.05}
                       min={0}
                       max={1.0}
-                      onChangeCommitted={handleSliderChangeThreshold}
+                      onChangeCommitted={(event, value) => {
+                        updateLoading(true);
+                        handleSliderChangeThreshold(event, value);
+                        updateLoading(false);
+                      }}
                     ></Slider>
                   </Grid>
                 </Grid>
@@ -224,6 +236,8 @@ export default function Dashboard() {
                 <TotalAnomalies
                   data={anomalies}
                   updateNews={updateSelectedDate}
+                  field_num={index}
+                  field={Object.keys(titles).splice(1)[index]}
                 />
               </Paper>
             </Grid>
